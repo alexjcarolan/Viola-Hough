@@ -3,4 +3,4 @@ A dartboard detection system that utilizes Viola-Jones to detect areas of possib
 
 |Hough Circle Centres|Hough Line Intersections|Viola-Hough Output|
 |--------------------|------------------------|------------------|
-|![](outputs/viola_hough_output9.jpg)|![](outputs/hough_circles_output9.jpg)|![](outputs/hough_lines_output9.jpg)|
+|![](outputs/hough_circles_output9.jpg)|![](outputs/hough_lines_output9.jpg)|![](outputs/viola_hough_output9.jpg)|
