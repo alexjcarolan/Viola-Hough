@@ -1,3 +1,4 @@
+import os
 import cv2 as cv
 import numpy as np
 import scipy as sc
@@ -30,7 +31,8 @@ def sobel(image):
     return magnitude_image, direction_image
 
 def hough(image_name, rmin, rmax, rinc, ainc, t1, t2, t3):
-    image = cv.imread(image_name)
+    image_path = os.path.dirname(__file__)
+    image = cv.imread(image_path+"inputs/"+str(image_name))
     image_grey = cv.cvtColor(image, cv.COLOR_RGB2GRAY)
     image_number = int(image_name[5:-4])
     height, width = image.shape[:2]
@@ -176,7 +178,8 @@ def get_objects(image_number):
     if (image_number == 15): return img15_darts
 
 def viola_jones(image_name, nmin):
-    image = cv.imread(image_name)
+    image_path = os.path.dirname(__file__)
+    image = cv.imread(image_path+"inputs/"+str(image_name))
     image_grey = cv.cvtColor(image, cv.COLOR_RGB2GRAY)
     image_grey = cv.equalizeHist(image_grey)
     image_number = int(image_name[5:-4])
@@ -192,7 +195,8 @@ def viola_jones(image_name, nmin):
 
 def viola_hough(image_name, rmin, rmax, rinc, ainc, nmin, t1, t2, t3, t4, t5, t6):
     # t1, t2, t3 are hough thresholds, t4, t5, t6 are viola_hough thresholds
-    image = cv.imread(image_name)
+    image_path = os.path.dirname(__file__)
+    image = cv.imread(image_path+"inputs/"+str(image_name))
     image_number = int(image_name[5:-4])
     height, width = image.shape[:2]
     det_circles, det_lines = hough(image_name, rmin, rmax, rinc, ainc, t1, t2, t3)
@@ -215,7 +219,7 @@ def viola_hough(image_name, rmin, rmax, rinc, ainc, nmin, t1, t2, t3, t4, t5, t6
 
     draw(image, det_combo, (0, 255,  0), 2)
     draw(image, tru_objects, (0, 0, 255), 2)
-    cv.imwrite("viola_hough_output"+str(image_number)+".jpg", image)
+    cv.imwrite(image_path+"outputs/"+"viola_hough_output"+str(image_number)+".jpg", image)
 
 rmin = 15
 rmax = 35

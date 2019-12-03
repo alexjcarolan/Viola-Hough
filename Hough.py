@@ -1,3 +1,4 @@
+import os
 import cv2 as cv
 import numpy as np
 import scipy as sc
@@ -30,7 +31,8 @@ def sobel(image):
     return magnitude_image, direction_image
 
 def hough(image_name, image_type, rmin, rmax, rinc, ainc, t1, t2, t3):
-    image = cv.imread(image_name)
+    image_path = os.path.dirname(__file__)
+    image = cv.imread(image_path+"inputs/"+str(image_name))
     image_grey = cv.cvtColor(image, cv.COLOR_RGB2GRAY)
     image_number = int(image_name[5:-4])
     height, width = image.shape[:2]
@@ -92,9 +94,9 @@ def hough(image_name, image_type, rmin, rmax, rinc, ainc, t1, t2, t3):
                                 line_image[y, x] = 255
 
     if (image_type == "circles"):
-        cv.imwrite("hough_"+str(image_type)+"_output"+str(image_number)+".jpg", circle_image)
+        cv.imwrite(image_path+"outputs/"+"hough_"+str(image_type)+"_output"+str(image_number)+".jpg", circle_image)
     elif (image_type == "lines"):
-        cv.imwrite("hough_"+str(image_type)+"_output"+str(image_number)+".jpg", line_image)
+        cv.imwrite(image_path+"outputs/"+"hough_"+str(image_type)+"_output"+str(image_number)+".jpg", line_image)
 
 rmin = 15
 rmax = 35

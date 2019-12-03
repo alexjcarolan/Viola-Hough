@@ -1,3 +1,4 @@
+import os
 import cv2 as cv
 import numpy as np
 import scipy as sc
@@ -92,7 +93,8 @@ def get_objects(image_type, image_number):
         if (image_number == 15): return img15_faces
 
 def viola_jones(image_name, image_type, nmin, threshold):
-    image = cv.imread(image_name)
+    image_path = os.path.dirname(__file__)
+    image = cv.imread(image_path+"inputs/"+str(image_name))
     image_grey = cv.cvtColor(image, cv.COLOR_RGB2GRAY)
     image_grey = cv.equalizeHist(image_grey)
     image_number = int(image_name[5:-4])
@@ -105,7 +107,7 @@ def viola_jones(image_name, image_type, nmin, threshold):
 
     draw(image, det, (0, 255, 0), 2)
     draw(image, tru, (0, 0, 255), 2)
-    cv.imwrite("viola_jones_"+image_type+"_output"+str(image_number)+".jpg", image)
+    cv.imwrite(image_path+"outputs/"+"viola_jones_"+image_type+"_output"+str(image_number)+".jpg", image)
  
 nmin = 8
 iou_thresh = 0.3
